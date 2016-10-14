@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
     Stripe::Charge.create(
       source:      params[:stripeToken],
       amount:      cart_total, # in cents
-      description: "#{current_user.name}'s Jungle Order",
+      description: "Khurrams Jungle Order",
       currency:    'cad'
     )
   end
@@ -57,7 +57,8 @@ class OrdersController < ApplicationController
 
     order.save!
 
-    ReceiptMailer.order_email(order, current_user)
+    puts "USESR IS #{current_user}"
+    ReceiptMailer.order_email(order, current_user).deliver_now
 
 
     order
