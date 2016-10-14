@@ -20,6 +20,7 @@ class OrdersController < ApplicationController
     redirect_to cart_path, error: e.message
   end
 
+
   private
 
   def empty_cart!
@@ -31,7 +32,7 @@ class OrdersController < ApplicationController
     Stripe::Charge.create(
       source:      params[:stripeToken],
       amount:      cart_total, # in cents
-      description: "Khurram Virani's Jungle Order",
+      description: "#{current_user.name}'s Jungle Order",
       currency:    'cad'
     )
   end
@@ -53,8 +54,16 @@ class OrdersController < ApplicationController
         )
       end
     end
+
     order.save!
+
+    ReceiptMailer.order_email(order, current_user)
+
+
     order
+
+
+
   end
 
   # returns total in cents not dollars (stripe uses cents as well)
