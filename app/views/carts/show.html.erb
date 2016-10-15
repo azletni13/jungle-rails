@@ -4,6 +4,12 @@
     <h1>My Cart</h1>
   </header>
 
+  <%# checks if cart is empty and displays message if empty %>
+  <% if cart == {} %>
+  <h4>Your cart is empty!</h4>
+  <%= link_to('Back to Store', :root, :class => 'btn btn-primary')  %>
+
+  <% else %>
   <div class="panel panel-default items">
     <table class="table table-bordered">
       <thead>
@@ -49,5 +55,6 @@
       <% end %>
     </div>
   </div>
+  <% end %>
 
 </section>

@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
     if @new_review
       redirect_to "/products/#{@product_id}"
     else
-      rendirect_to "/products/#{@product_id}"
+      redirect_to "/products/#{@product_id}"
     end
 
   end
