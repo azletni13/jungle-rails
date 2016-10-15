@@ -164,5 +164,28 @@ Review.create!({
   rating: 2
   })
 
+Review.create!({
+  product_id: 3,
+  user_id: 1,
+  description: "meh",
+  rating: 9
+  })
+
+Review.create!({
+  product_id: 2,
+  user_id: 3,
+  description: "comfiest pants I own",
+  rating: 8
+  })
+
+Review.create!({
+  product_id: 5,
+  user_id: 1,
+  description: "AMAZING!!!!!",
+  rating: 2
+  })
+
+
+
 
 puts "DONE!"

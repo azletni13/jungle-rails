@@ -22,6 +22,25 @@
           <dt>Price</dt>
           <dd>$<%= @product.price %></dd>
         </dl>
+        <dl class="dl-horizontal">
+          <dt>Reviews</dt>
+          <%= form_for @review, url: product_reviews_path(@product)  do |f| %>
+          <dd><%= f.label :rating %></dd>
+          <dd><%= f.select :rating, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %></dd>
+          <dd><%= f.label :description %></dd>
+          <dd><%= f.text_area :description %></dd>
+          <dd><%= f.submit %></dd>
+          <% end %>
+          <dd><% @reviews.each do |r| %>
+              <dd><strong>User</strong></dd>
+              <dd><%= @user %></dd>
+              <dd><strong>Description</strong></dd>
+              <dd><%= r.description %></dd>
+              <dd><strong>Rating</strong></dd>
+              <dd><%= r.rating %></dd><br>
+              <% end %>
+          </dd>
+          </dl>
       </div>
     </div>
 
