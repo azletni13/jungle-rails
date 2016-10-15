@@ -6,7 +6,9 @@
 
   <%# checks if cart is empty and displays message if empty %>
   <% if cart == {} %>
-  <p>Your cart is empty</p>
+  <h4>Your cart is empty!</h4>
+  <%= link_to('Back to Store', :root, :class => 'btn btn-primary')  %>
+
   <% else %>
   <div class="panel panel-default items">
     <table class="table table-bordered">
