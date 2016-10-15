@@ -1,5 +1,11 @@
 <section class="products-show">
 
+<% if flash[:empty_review] %>
+  <div class="alert alert-danger"><%= flash[:empty_review] %></div>
+<% elsif flash[:review] %>
+  <div class="alert alert-success"><%= flash[:review] %></div>
+<% end %>
+
   <header class="page-header">
     <h1><%= link_to @product.category.name, @product.category %> &raquo; <%= @product.name %></h1>
   </header>
@@ -22,8 +28,10 @@
           <dt>Price</dt>
           <dd>$<%= @product.price %></dd>
         </dl>
+
         <dl class="dl-horizontal">
           <dt>Reviews</dt>
+        <% if current_user %>
           <%= form_for @review, url: product_reviews_path(@product)  do |f| %>
           <dd><%= f.label :rating %></dd>
           <dd><%= f.select :rating, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %></dd>
@@ -31,14 +39,25 @@
           <dd><%= f.text_area :description %></dd>
           <dd><%= f.submit %></dd>
           <% end %>
-          <dd><% @reviews.each do |r| %>
-              <dd><strong>User</strong></dd>
-              <dd><%= @user %></dd>
+          <% end %>
+          <dd><% @reviews.each do |review| %>
+
+            <% user_id = review.user_id %>
+            <% reviewer = User.find(user_id) %>
+              <br><dd><strong>User</strong></dd>
+              <dd><%= reviewer.first_name %></dd>
               <dd><strong>Description</strong></dd>
-              <dd><%= r.description %></dd>
+              <dd><%= review.description %></dd>
               <dd><strong>Rating</strong></dd>
-              <dd><%= r.rating %></dd><br>
+              <dd><%= review.rating %></dd>
+              <% if current_user && current_user.id == review.user_id %>
+
+              <dd><%= link_to fa_icon('trash'), product_review_path(product_id: @product.id, id: review.id), class: 'btn btn-sm btn-danger', method: :delete %>
+              </dd><br>
+              <% else %>
+              <br>
               <% end %>
+          <% end %>
           </dd>
           </dl>
       </div>

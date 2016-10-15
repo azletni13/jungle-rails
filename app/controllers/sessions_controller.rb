@@ -9,9 +9,11 @@ class SessionsController < ApplicationController
     @current_user = User.find_by_email(params[:email])
     if @current_user && @current_user.authenticate(params[:password])
       session[:user_id] = @current_user.id
+      flash[:notice] = "Welcome #{@current_user.first_name}!"
       redirect_to '/'
     else
-      redirect_to '/'
+      flash[:invalid] = "Invalid login"
+      redirect_to new_session_path
     end
   end
 

@@ -11,7 +11,6 @@ class ProductsController < ApplicationController
     hst_price.round(2)
     @reviews = Review.where(product_id: params[:id]).order(created_at: :desc)
     @review = Review.new()
-    @user = current_user.first_name
   end
 
 end

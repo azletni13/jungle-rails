@@ -8,9 +8,11 @@ class UsersController < ApplicationController
 
     if @current_user.save
       session[:user_id] = @current_user.id
-      redirect_to '/'
+      flash[:notice] = "Sign-up successful. Welcome to Jungle #{@current_user.first_name}!"
+      redirect_to :root
     else
-      redirect_to '/new'
+      flash[:notice] = "Sign-up unsuccessful. Please try again."
+      redirect_to new_user_path, notice: "Something isn't right. Please try again"
     end
   end
 
