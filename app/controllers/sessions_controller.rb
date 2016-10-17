@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @current_user = User.find_by_email(params[:email])
-    if @current_user && @current_user.authenticate(params[:password])
+
+    if @current_user = User.authenticate_with_credentials(params[:email], params[:password])
       session[:user_id] = @current_user.id
       flash[:notice] = "Welcome #{@current_user.first_name}!"
       redirect_to '/'
