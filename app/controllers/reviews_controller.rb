@@ -2,7 +2,6 @@ class ReviewsController < ApplicationController
 
 
   def create
-    # before_action :require_login
 
     @product = Product.find params['product_id']
     @user = current_user.id
@@ -21,7 +20,6 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    # before_action :require_login
     @review = Review.find params[:id]
     @review.destroy
     redirect_to "/products/#{params[:product_id]}"
@@ -29,11 +27,6 @@ class ReviewsController < ApplicationController
   end
 
 private
-
-  # def require_login
-  #   unless current_user
-  #     flash[:e]
-  # end
 
   def review_params
 
