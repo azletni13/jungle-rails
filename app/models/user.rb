@@ -11,13 +11,13 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :case_sensitive => false
 
   def self.authenticate_with_credentials(email, password)
-    @current_user = User.find_by(email: email)
+    email = email.gsub(" ", "").downcase
+    @current_user = User.find_by("lower(email) = ?", email)
     if @current_user && @current_user.authenticate(password)
       return @current_user
     else
       nil
     end
-
   end
 
 end
