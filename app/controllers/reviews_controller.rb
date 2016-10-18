@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
 
+  before_filter :authorize
 
   def create
 
@@ -23,13 +24,12 @@ class ReviewsController < ApplicationController
     @review = Review.find params[:id]
     @review.destroy
     redirect_to "/products/#{params[:product_id]}"
-
   end
 
 private
 
   def review_params
-
+    byebug
     new_params = params.require(:review).permit(:product_id,
                                   :user_id,
                                   :description,
@@ -37,6 +37,6 @@ private
                                   )
 
     new_params['user_id'] = @user
-    return new_params
+    new_params
   end
 end
