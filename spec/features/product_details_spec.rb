@@ -21,8 +21,11 @@ RSpec.feature "Visitor clicks product on home page which navigates to product de
 
     visit root_path
 
+    page.find('.btn[href="/products/10"]').click
+
     save_screenshot
-    expect(page).to have_css 'article.product', count: 10
+    expect(page).to have_css '.products-show'
+
   end
 
 end
